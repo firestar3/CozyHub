@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CozyHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background Layer -->
+    <div class="bg-layer"></div>
+    <div class="bg-overlay"></div>
+
+    <div class="main-container">
+
+        <!-- COLUMN 1: Settings, Tasks, Spotify -->
+        <div class="col col-left">
+            <div>
+                <!-- Settings Strip -->
+                <div class="card settings-card" id="settings-trigger">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Dashboard Settings</span>
+                </div>
+            </div>
+
+            <!-- Tasks Widget -->
+            <div class="card tasks-card">
+                <div class="tasks-header">
+                    <h3>My Tasks</h3>
+                </div>
+
+                <div class="tasks-tabs">
+                    <button class="tab-btn active" data-tab="homework">Homework</button>
+                    <button class="tab-btn" data-tab="general">General</button>
+                    <button class="tab-btn" data-tab="ec">EC</button>
+                </div>
+
+                <div class="tasks-body">
+                    <ul class="task-list active" id="list-homework"></ul>
+                    <ul class="task-list" id="list-general"></ul>
+                    <ul class="task-list" id="list-ec"></ul>
+                </div>
+
+                <div class="task-input-area">
+                    <input type="text" id="new-task-input" placeholder="Add a task...">
+                    <button id="add-task-btn"><i class="fa-solid fa-plus"></i></button>
+                </div>
+            </div>
+
+            <!-- Spotify Widget -->
+            <div class="card spotify-card">
+                <iframe id="spotify-frame-1" src="" width="100%" height="50%" frameBorder="0" allowfullscreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"></iframe>
+                <iframe id="spotify-frame-2" src="" width="100%" height="50%" frameBorder="0" allowfullscreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"></iframe>
+            </div>
+        </div>
+
+        <!-- COLUMN 2: Date/Time, ChatGPT -->
+        <div class="col col-mid">
+
+            <!-- Date & Time -->
+            <div class="card time-card">
+                <div class="clock-wrap">
+                    <h1 id="clock-time">00:00 <span class="ampm">AM</span></h1>
+                    <h2 id="clock-date">Jan 01, Monday</h2>
+                </div>
+            </div>
+
+            <!-- Whiteboard Interface -->
+            <div class="card whiteboard-card">
+                <div class="card-title">
+                    <div><i class="fa-solid fa-pen-to-square"></i> Whiteboard</div>
+                    <a href="https://excalidraw.com" target="_blank" class="mini-btn" title="Open Fullscreen"><i
+                            class="fa-solid fa-expand"></i></a>
+                </div>
+                <div class="whiteboard-wrapper">
+                    <iframe id="whiteboard-frame" src="https://excalidraw.com" allow="clipboard-write"></iframe>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- COLUMN 3: Shortcuts, Calendar -->
+        <div class="col col-right">
+
+            <!-- Shortcut List -->
+            <div class="card shortcuts-card">
+                <div class="card-title">
+                    <i class="fa-solid fa-link"></i> Quick Links
+                    <button id="add-shortcut-sub-btn" class="mini-btn"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <div class="shortcuts-list-vertical" id="shortcuts-container">
+                    <!-- JS injected -->
+                </div>
+            </div>
+
+            <!-- Google Calendar (New) -->
+            <div class="card calendar-card">
+                <div class="card-title">
+                    <i class="fa-solid fa-calendar-days"></i> Calendar
+                </div>
+                <div class="cal-wrapper">
+                    <iframe id="calendar-frame" src="" frameborder="0" scrolling="no"></iframe>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Modals -->
+    <dialog id="config-modal">
+        <form method="dialog" id="config-form">
+            <h3>Dashboard Settings</h3>
+
+            <div class="section">
+                <h4>Google Calendar ID</h4>
+                <input type="text" id="cfg-calendar" placeholder="en.usa#holiday@group.v.calendar.google.com">
+                <small style="opacity:0.6; font-size:0.8rem">Use 'Public' address or Embed ID from GCal
+                    Settings.</small>
+            </div>
+
+            <div class="section">
+                <h4>Spotify Link 1</h4>
+                <input type="text" id="cfg-spotify-1" placeholder="https://open.spotify.com/playlist/...">
+            </div>
+
+            <div class="section">
+                <h4>Spotify Link 2</h4>
+                <input type="text" id="cfg-spotify-2" placeholder="https://open.spotify.com/playlist/...">
+            </div>
+
+            <div class="modal-btns">
+                <button type="button" class="btn-cancel">Cancel</button>
+                <button type="submit" class="btn-save">Save</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="shortcut-add-modal">
+        <form method="dialog" id="shortcut-form">
+            <h3>Add Link</h3>
+            <input type="text" id="sc-name" placeholder="Name (e.g. Gmail)" required>
+            <input type="url" id="sc-url" placeholder="https://mail.google.com" required>
+            <div class="modal-btns">
+                <button type="button" class="btn-cancel">Cancel</button>
+                <button type="submit" class="btn-save">Add</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
